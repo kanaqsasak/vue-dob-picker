@@ -62,7 +62,7 @@ export default {
       day: null,
       month: null,
       year: null,
-      currentYear: (new Date()).getFullYear(),
+      currentYear: (new Date()).getUTCFullYear(),
       blurTimeout: null,
     };
   },
@@ -83,9 +83,9 @@ export default {
       },
       set(val) {
         if (val) {
-          this.day = val.getDate();
-          this.month = val.getMonth();
-          this.year = val.getFullYear();
+          this.day = val.getUTCDate();
+          this.month = val.getUTCMonth();
+          this.year = val.getUTCFullYear();
         }
       },
     },
