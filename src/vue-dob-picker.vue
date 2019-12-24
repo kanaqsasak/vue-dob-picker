@@ -1,27 +1,27 @@
 <template>
   <div class="vue-dob-picker">
-    <label :class="labelClass" :style="{ flex: proportions[0] }">
+    <label :class="labelClass">
       <div v-if="showLabels !== 'false'">{{ labels[0] }}</div>
       <select v-model="day" :class="dayClass" @blur="onBlur" @focus="onFocus">
         <option v-if="placeholders[0]" value="null" disabled="disabled">{{ placeholders[0] }}</option>
-        <option v-for="(item, index) in new Array(28)" :value="index + 1">{{ index + 1 }}</option>
+        <option v-for="(item, index) in new Array(28)" :key="index" :value="index + 1">{{ index + 1 }}</option>
         <option value="29" v-if="daysInMonth >= 29 || isLeapYear">29</option>
         <option value="30" v-if="daysInMonth >= 30">30</option>
         <option value="31" v-if="daysInMonth >= 31">31</option>
       </select>
     </label>
-    <label :class="labelClass" :style="{ flex: proportions[1] }">
+    <label :class="labelClass">
       <div v-if="showLabels !== 'false'">{{ labels[1] }}</div>
       <select v-model="month" :class="monthClass" @blur="onBlur" @focus="onFocus">
         <option v-if="placeholders[1]" value="null" disabled="disabled">{{ placeholders[1] }}</option>
-        <option v-for="(item, index) in new Array(12)" :value="index">{{ getDisplayedMonth(index) }}</option>
+        <option v-for="(item, index) in new Array(12)" :key="index" :value="index">{{ getDisplayedMonth(index) }}</option>
       </select>
     </label>
-    <label :class="labelClass" :style="{ flex: proportions[2] }">
+    <label :class="labelClass">
       <div v-if="showLabels !== 'false'">{{ labels[2] }}</div>
       <select v-model="year" :class="yearClass" @blur="onBlur" @focus="onFocus">
         <option v-if="placeholders[2]" value="null" disabled="disabled">{{ placeholders[2] }}</option>
-        <option v-for="(item, index) in new Array(100)" :value="currentYear - index">{{ currentYear - index }}</option>
+        <option v-for="(item, index) in new Array(100)" :key="index" :value="currentYear - index">{{ currentYear - index }}</option>
       </select>
     </label>
   </div>
@@ -47,10 +47,6 @@ export default {
     monthFormat: {
       type: String,
       default: '2-digit',
-    },
-    proportions: {
-      type: Array,
-      default: () => [1, 1, 2],
     },
     labels: {
       type: Array,
@@ -145,26 +141,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-  .vue-dob-picker {
-    display: flex;
-  }
-
-  label {
-    display: inline-block;
-    padding: 0 4px;
-  }
-
-  label:first-child {
-    padding-left: 0;
-  }
-
-  label:last-child {
-    padding-right: 0;
-  }
-
-  select {
-    width: 100%;
-  }
-</style>

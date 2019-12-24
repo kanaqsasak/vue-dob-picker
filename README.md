@@ -1,6 +1,6 @@
 # vue-dob-picker
 
-> A simple Vue day, month and year date picker
+> A simple Vue day, month and year date picker. A fork from [DanielBrierton/vue-dob-picker](https://github.com/DanielBrierton/vue-dob-picker) removing style.
 
 ## Build Setup
 
