@@ -40,6 +40,10 @@ export default {
     selectPlaceholderClass: String,
     labelClass: String,
     showLabels: String,
+    useUtc: {
+      type: Boolean,
+      default: false,
+    },
     locale: {
       type: String,
       default: navigator.language,
@@ -62,7 +66,7 @@ export default {
       day: null,
       month: null,
       year: null,
-      currentYear: (new Date()).getUTCFullYear(),
+      currentYear: this.useUtc ? (new Date()).getUTCFullYear() : (new Date()).getFullYear(),
       blurTimeout: null,
     };
   },
@@ -77,15 +81,18 @@ export default {
           this.day = null;
         }
         if (this.day !== null && this.month !== null && this.year !== null) {
+          if (this.useUtc) {
+            return new Date(Date.UTC(this.year, this.month, this.day, 0, 0, 0, 0));
+          }
           return new Date(this.year, this.month, this.day, 0, 0, 0, 0);
         }
         return null;
       },
       set(val) {
         if (val) {
-          this.day = val.getUTCDate();
-          this.month = val.getUTCMonth();
-          this.year = val.getUTCFullYear();
+          this.day = this.useUtc ? val.getUTCDate() : val.getDate();
+          this.month = this.useUtc ? val.getUTCMonth() : val.getMonth();
+          this.year = this.useUtc ? val.getUTCFullYear() : val.getFullYear();
         }
       },
     },
